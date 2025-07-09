@@ -6,7 +6,7 @@ import { Category } from "../category"
 
 export function Categories() {
     return (
-        <FlatList 
+        <FlatList
             data={categories}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => 
@@ -18,6 +18,7 @@ export function Categories() {
             }
             horizontal
             style={styles.container}
+            contentContainerStyle={styles.content}
             showsHorizontalScrollIndicator={false}
         />
     )
