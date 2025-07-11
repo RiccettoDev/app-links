@@ -1,18 +1,46 @@
-import { View, Image, TouchableOpacity, FlatList, Modal, Text } from "react-native";
+import { View, Image, TouchableOpacity, FlatList, Modal, Text, Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons"
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 
 import { colors } from "@/styles/colors";
 import styles from "./styles";
 import { Categories } from "@/components/categories";
 import { Link } from "@/components/link";
 import { Option } from "@/components/option";
-import { useState } from "react";
+import { useActionState, useCallback, useState } from "react";
 import { categories } from "@/utils/categories";
+import { linkStorage, LinkStorage } from "@/storage/link-storage";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 export default function Index() {
 
+    const [showModal, setShowModal] = useState(false);
+    const [links, setLinks] = useState<LinkStorage[]>([]);
+    const [link, setLink] = useState<LinkStorage>({} as LinkStorage);
     const [category, setCategory] = useState(categories[0].name)
+
+    async function getLinks() {
+        try {
+            const links = await linkStorage.get();
+            console.log("Links:", links);
+
+            const filtered = links.filter(link => link.category === category);
+            
+            setLinks(filtered);
+        } catch (error) {
+            console.error("Failed to fetch links:", error);
+            Alert.alert("Error", "Não foi possível carregar os links")
+        }
+    }
+
+    function hanfleDetails(selected: LinkStorage) {
+        setShowModal(true);
+        setLink(selected);
+    }
+
+    useFocusEffect(useCallback(() =>{
+        getLinks();
+    }, [category]))
 
     return (
         <View style={styles.container}>
@@ -27,13 +55,13 @@ export default function Index() {
             <Categories onChange={setCategory} selected={category} />
 
             <FlatList 
-                data={["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]}
-                keyExtractor={(item) => item}
-                renderItem={() => (
+                data={links}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
                     <Link 
-                        name="Rocketseat"
-                        url="https://www.rocketseat.com.br/"
-                        onDetails={() => alert("Clicou") }
+                        name={item.name}
+                        url={item.url}
+                        onDetails={() => hanfleDetails(item)}
                     />
                 )}
                 style={styles.links}
@@ -41,22 +69,23 @@ export default function Index() {
                 showsVerticalScrollIndicator={false}
             />
 
-            <Modal transparent visible={false}>
+
+            <Modal transparent visible={showModal} animationType="slide">
                 <View style={styles.modal}>
                     <View style={styles.modalContent}>
                         <View style={styles.modalHeader}>
-                            <Text style={styles.category}>Curso</Text>
-                            <TouchableOpacity>
+                            <Text style={styles.category}>{link.category}</Text>
+                            <TouchableOpacity onPress={() => setShowModal(false)} >
                                 <MaterialIcons name="close" size={20} color={colors.gray[400]} />
                             </TouchableOpacity>
                         </View>
                         
                         <Text style={styles.modalLinkName}>
-                            Rocketseat
+                            {link.name}
                         </Text>
 
                         <Text style={styles.modalUrl}>
-                            https://www.rocketseat.com.br/
+                            {link.url}
                         </Text>
 
                         <View style={styles.modalFooter}>
