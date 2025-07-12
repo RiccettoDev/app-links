@@ -5,7 +5,7 @@ import { colors } from "@/styles/colors";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 22,
+        paddingTop: 52,
     },
     header: {
         paddingHorizontal: 24,
@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
         borderTopColor: colors.gray[800],
         paddingBottom: 42,
         padding: 24,
+        height: '70%', // 👈 novo
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
     },
     modalHeader: {
         width: "100%",

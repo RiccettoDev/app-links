@@ -10,17 +10,27 @@ type Category = {
 export const categories: Category[] = [
     {
         id: "1",
-        name: "Projeto",
-        icon: "code",
-    },
-    {
-        id: "2",
         name: "Site",
         icon: "language",
     },
     {
+        id: "2",
+        name: "Projeto",
+        icon: "code",
+    },
+    {
         id: "3",
-        name: "Video",
+        name: "Filmes",
         icon: "movie",
+    },
+    {
+        id: "4",
+        name: "Cursos",
+        icon: "school",
+    },
+    {
+        id: "5",
+        name: "Notícias",
+        icon: "newspaper",
     },
 ]

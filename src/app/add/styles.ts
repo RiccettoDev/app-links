@@ -25,5 +25,12 @@ export const styles = StyleSheet.create({
     form: {
         padding: 24,
         gap: 16,
+    },
+    selectImage: {
+        backgroundColor: colors.gray[600],
+        padding: 16,
+        borderRadius: 8,
+        alignItems: "center",
+        justifyContent: "center",
     }
 })

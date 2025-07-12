@@ -89,6 +89,7 @@ export default function Index() {
                     <Link 
                         name={item.name}
                         url={item.url}
+                        image={item.image}
                         onDetails={() => hanfleDetails(item)}
                     />
                 )}
@@ -104,7 +105,7 @@ export default function Index() {
                         <View style={styles.modalHeader}>
                             <Text style={styles.category}>{link.category}</Text>
                             <TouchableOpacity onPress={() => setShowModal(false)} >
-                                <MaterialIcons name="close" size={20} color={colors.gray[400]} />
+                                <MaterialIcons name="close" size={20} color={colors.green[300]} />
                             </TouchableOpacity>
                         </View>
                         
@@ -115,6 +116,14 @@ export default function Index() {
                         <Text style={styles.modalUrl}>
                             {link.url}
                         </Text>
+                        
+                        {link.image && (
+                            <Image
+                                source={{ uri: link.image }}
+                                style={{ width: "100%", height: "50%", borderRadius: 8, marginTop: 22, marginBottom: 12 }}
+                            />
+                        )}
+
 
                         <View style={styles.modalFooter}>
                             <Option 
