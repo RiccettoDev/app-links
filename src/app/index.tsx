@@ -114,7 +114,7 @@ export default function Index() {
                         </Text>
 
                         <Text style={styles.modalUrl}>
-                            {link.url}
+                            {link.url.length > 30 ? `${link.url.slice(0, 30)}...` : link.url}
                         </Text>
                         
                         {link.image && (
