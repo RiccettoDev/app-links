@@ -11,3 +11,7 @@
 ```
     eas build --platform android --profile production
 ```
+
+-----
+
+- Adicionado PDF de configuração para o build do APK
