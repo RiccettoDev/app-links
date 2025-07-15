@@ -2,6 +2,8 @@
 
 </br>
 
+![App Links](public/images/imgApp.png)
+
 - Projeto de aplicativo mobile para salvar links de sites, videos, filmes e etc. Para o desenvolvimento do aplicativo, foi utilizado o framework React Native.
 
 </br>
